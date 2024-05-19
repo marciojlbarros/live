@@ -1,14 +1,25 @@
 <div>
     <div class="container mt-5 mb-5 d-flex justify-content-center">
-        <form wire:submit='create' action="#">
+        <form wire:submit.prevent='create' action="#">
             <div class="card px-1 py-4">
                 <div class="card-body">
                     <h6 class="card-title mb-3">Create Post</h6>
                     <div class="row">
                         <div class="col-sm-12">
+
+                            @if(session()->has('success'))
+                            <span class="text text-success">{{ session()->get('success') }}</span>
+                            @endif
+
                             <div class="form-group">
+
+                                @error('title')
+                                <span class="text text-danger">{{ $message }}</span>
+                                @enderror
+
                                 <div class="input-group">
-                                    <input class="form-control" type="text" name="title" placeholder="Title">
+                                    <input wire:model='title' class="form-control" type="text" name="title"
+                                        placeholder="Title">
                                 </div>
                             </div>
                         </div>
@@ -16,8 +27,11 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
+                                @error('content')
+                                <span class="text text-danger">{{ $message }}</span>
+                                @enderror
                                 <div class="input-group">
-                                    <textarea name="content" placeholder="Content"
+                                    <textarea wire:model='content' name="content" placeholder="Content"
                                         class="form-control content"></textarea>
                                 </div>
                             </div>
