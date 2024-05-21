@@ -2,31 +2,33 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\PostForm;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
 class PostCreate extends Component
 {
-    public string $title;
-    public string $content;
+    public PostForm $form;
 
     public function create()
     {
-        $this->validate([
-            'title' => 'required',
-            'content' => 'required|min:10',
-        ]);
+        // $this->validate([
+        //     'title' => 'required',
+        //     'content' => 'required|min:10',
+        // ]);
+
+        $this->validate();
 
         Post::create([
-            'title' => $this->title,
-            'content' => $this->content,
-            'slug' => Str::slug($this->title),
+            'title' => $this->form->title,
+            'content' => $this->form->content,
+            'slug' => Str::slug($this->form->title),
             'user_id' => 101,
         ]);
 
-        $this->title = '';
-        $this->content = '';
+        $this->form->title = '';
+        $this->form->content = '';
 
         session()->flash('success', 'Post successfully created!');
     }

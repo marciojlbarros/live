@@ -1,6 +1,6 @@
 <div>
     <div class="container mt-5 mb-5 d-flex justify-content-center">
-        <form wire:submit.prevent='create' action="#">
+        <form wire:submit='create' action="#">
             <div class="card px-1 py-4">
                 <div class="card-body">
                     <h6 class="card-title mb-3">Create Post</h6>
@@ -13,13 +13,13 @@
 
                             <div class="form-group">
 
-                                @error('title')
+                                @error('form.title')
                                 <span class="text text-danger">{{ $message }}</span>
                                 @enderror
 
                                 <div class="input-group">
-                                    <input wire:model='title' class="form-control" type="text" name="title"
-                                        placeholder="Title">
+                                    <input wire:model.live.debounce.500ms='form.title' class="form-control" type="text"
+                                        name="title" placeholder="Title">
                                 </div>
                             </div>
                         </div>
@@ -27,12 +27,12 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                @error('content')
+                                @error('form.content')
                                 <span class="text text-danger">{{ $message }}</span>
                                 @enderror
                                 <div class="input-group">
-                                    <textarea wire:model='content' name="content" placeholder="Content"
-                                        class="form-control content"></textarea>
+                                    <textarea wire:model.live.debounce.500ms='form.content' name="content"
+                                        placeholder="Content" class="form-control content"></textarea>
                                 </div>
                             </div>
                         </div>
